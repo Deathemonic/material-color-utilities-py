@@ -1,88 +1,114 @@
-#
-# Utility methods for mathematical operations.
-# 
-#
-# The signum function.
-#  
-# @return 1 if num > 0, -1 if num < 0, and 0 if num = 0
-#
+"""
+Utility methods for mathematical operations.
+"""
+
+import numpy as np
+from numba import njit
+
+
+@njit
 def signum(num):
-    if (num < 0):
+    """
+    The signum function.
+
+    Return:
+    1 if num > 0, -1 if num < 0, and 0 if num = 0
+    """
+
+    if num < 0:
         return -1
-    elif (num == 0):
+    elif num == 0:
         return 0
     else:
         return 1
 
-# /**
-#  * The linear interpolation function.
-#  *
-#  * @return start if amount = 0 and stop if amount = 1
-#  */
+
+@njit
 def lerp(start, stop, amount):
+    """
+    The linear interpolation function.
+    Return:
+    start if amount = 0 and stop if amount = 1
+    """
+
     return (1.0 - amount) * start + amount * stop
 
-# /**
-#  * Clamps an integer between two integers.
-#  *
-#  * @return input when min <= input <= max, and either min or max
-#  * otherwise.
-#  */
+
+@njit
 def clampInt(min, max, input):
-    if (input < min):
+    """
+    Clamps an integer between two integers.
+
+    Return input when min <= input <= max, and either min or max otherwise.
+    """
+
+    if input < min:
         return min
-    elif (input > max):
+    elif input > max:
         return max
     return input
 
-# /**
-#  * Clamps an integer between two floating-point numbers.
-#  *
-#  * @return input when min <= input <= max, and either min or max
-#  * otherwise.
-#  */
+
+@njit
 def clampDouble(min, max, input):
-    if (input < min):
+    """
+    Clamps an integer between two floating-point numbers.
+    Return:
+    Input when min <= input <= max, and either min or max otherwise.
+    """
+
+    if input < min:
         return min
-    elif (input > max):
+    elif input > max:
         return max
     return input
 
-# /**
-#  * Sanitizes a degree measure as an integer.
-#  *
-#  * @return a degree measure between 0 (inclusive) and 360
-#  * (exclusive).
-#  */
+
+@njit
 def sanitizeDegreesInt(degrees):
+    """
+    Sanitizes a degree measure as an integer.
+
+    Return:
+    A degree measure between 0 (inclusive) and 360
+    """
+
     degrees = degrees % 360
-    if (degrees < 0):
+    if degrees < 0:
         degrees = degrees + 360
     return degrees
 
-# /**
-#  * Sanitizes a degree measure as a floating-point number.
-#  *
-#  * @return a degree measure between 0.0 (inclusive) and 360.0
-#  * (exclusive).
-#  */
+
+@njit
 def sanitizeDegreesDouble(degrees):
+    """
+    Sanitizes a degree measure as a floating-point number.
+    Eeturn:
+    A degree measure between 0.0 (inclusive) and 360.0
+    """
+
     degrees = degrees % 360.0
-    if (degrees < 0):
+    if degrees < 0:
         degrees = degrees + 360.0
     return degrees
 
-# /**
-#  * Distance of two points on a circle, represented using degrees.
-#  */
-def differenceDegrees(a, b):
-    return 180.0 - abs(abs(a - b) - 180.0)
 
-# /**
-#  * Multiplies a 1x3 row vector with a 3x3 matrix.
-#  */
+@njit
+def differenceDegrees(a, b):
+    """
+    Distance of two points on a circle, represented using degrees.
+    """
+
+    return 180.0 - np.abs(np.abs(a - b) - 180.0)
+
+
+@njit
 def matrixMultiply(row, matrix):
+    """
+    Multiplies a 1x3 row vector with a 3x3 matrix.
+    """
+
     a = row[0] * matrix[0][0] + row[1] * matrix[0][1] + row[2] * matrix[0][2]
     b = row[0] * matrix[1][0] + row[1] * matrix[1][1] + row[2] * matrix[1][2]
     c = row[0] * matrix[2][0] + row[1] * matrix[2][1] + row[2] * matrix[2][2]
-    return [a, b, c];
+    return np.array([a, b, c])

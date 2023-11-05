@@ -1,6 +1,8 @@
 from ..quantize.quantizer_wsmeans import *
 from ..quantize.quantizer_wu import *
 
+from numba import njit
+
 # /**
 #  * An image quantizer that improves on the quality of a standard K-Means
 #  * algorithm by setting the K-Means initial state to the output of a Wu
@@ -17,6 +19,9 @@ from ..quantize.quantizer_wu import *
 # // namespace facilitates this.
 # //
 # // tslint:disable-next-line:class-as-namespace
+
+
+@njit
 class QuantizerCelebi:
     # /**
     #  * @param pixels Colors in ARGB format.
