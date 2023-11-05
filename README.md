@@ -1,20 +1,18 @@
-# material-color-utilities-python
-
-[![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#AdwCustomizer:matrix.org)
+# material-color-utilities-py
 
 Python port of material-color-utilities used for Material You colors
 
+Forked from: https://github.com/avanisubbiah/material-color-utilities-python
 Original source code: https://github.com/material-foundation/material-color-utilities
 
-NOTE: This is an **unofficial** port of material-color-utilities from JavaScript to Python
+NOTE: This is a rewrite of the material-color-utilities-python module which is a port of Javascript to Python. Because it's a port there some Javascript leftovers that are still in, so this is a proper reimprementation of material-color-utilities in python with proper docstrings proper naming convention, optimization and refactoring, etc.
 
 ## Build and install
 
-You need to have [Poetry](https://python-poetry.org) installed
+Pip:
 
 ```shell
-poetry build
-poetry install
+pip install material-color-utilities-py
 ```
 
 ## Usage examples for Themeing
@@ -22,9 +20,9 @@ poetry install
 Theme from color:
 
 ``` python
-from material_color_utilities_python import *
+from material_color_utilities import theme_from_source_color, argb_from_hex
 
-theme = themeFromSourceColor(argbFromHex('#4285f4'))
+theme = theme_from_source_color(argb_from_hex('#4285f4'))
 
 print(theme)
 ```
@@ -32,25 +30,25 @@ print(theme)
 Color from image:
 
 ``` python
-from material_color_utilities_python import *
+from material_color_utilities_python import Image, SourceColorFromImage, hex_from_argb
 
 img = Image.open('path/to/image.png')
-argb = sourceColorFromImage(img)
+argb = SourceColorFromImage(img)
 
-print(hexFromArgb(argb))
+print(hex_from_argb(argb))
 ```
 
 Theme from image:
 
 ``` python
-from material_color_utilities_python import *
+from material_color_utilities_python import Image, theme_from_image
 
 img = Image.open('/path/to/image')
 basewidth = 64
 wpercent = (basewidth/float(img.size[0]))
 hsize = int((float(img.size[1])*float(wpercent)))
 img = img.resize((basewidth,hsize),Image.Resampling.LANCZOS)
-print(themeFromImage(img))
+print(theme_from_image(img))
 
 print(theme)
 ```
