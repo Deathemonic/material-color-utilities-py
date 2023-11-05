@@ -1,5 +1,5 @@
 from ..hct.cam16 import *
-from ..utils.color_utils import *
+from ..utils.color_utils import fr
 from ..utils.math_utils import *
 from collections import OrderedDict
 

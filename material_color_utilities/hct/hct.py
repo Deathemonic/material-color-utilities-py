@@ -56,11 +56,11 @@ def findCamByJ(hue, chroma, tone):
     while (abs(low - high) > LIGHTNESS_SEARCH_ENDPOINT):
         mid = low + (high - low) / 2
         camBeforeClip = Cam16.fromJch(mid, chroma, hue)
-        clipped = camBeforeClip.toInt()
+        clipped = camBeforeClip.to_int()
         clippedLstar = lstarFromArgb(clipped)
         dL = abs(tone - clippedLstar)
         if (dL < DL_MAX):
-            camClipped = Cam16.fromInt(clipped)
+            camClipped = Cam16.from_int(clipped)
             dE = camClipped.distance(Cam16.fromJch(camClipped.j, camClipped.chroma, hue))
             if (dE <= DE_MAX and dE <= bestdE):
                 bestdL = dL
@@ -133,7 +133,7 @@ class Hct:
         self.internalHue = internalHue
         self.internalChroma = internalChroma
         self.internalTone = internalTone
-        self.setInternalState(self.toInt())
+        self.setInternalState(self.to_int())
 
     # /**
     #  * @param hue 0 <= hue < 360; invalid values are corrected.
@@ -153,12 +153,12 @@ class Hct:
     #  * @return HCT representation of a color in default viewing conditions
     #  */
     @staticmethod
-    def fromInt(argb):
-        cam = Cam16.fromInt(argb)
+    def from_int(argb):
+        cam = Cam16.from_int(argb)
         tone = lstarFromArgb(argb)
         return Hct(cam.hue, cam.chroma, tone)
 
-    def toInt(self):
+    def to_int(self):
         return getInt(self.internalHue, self.internalChroma, self.internalTone)
 
     # /**
@@ -200,7 +200,7 @@ class Hct:
         self.setInternalState(getInt(self.internalHue, self.internalChroma, newTone))
 
     def setInternalState(self, argb):
-        cam = Cam16.fromInt(argb)
+        cam = Cam16.from_int(argb)
         tone = lstarFromArgb(argb)
         self.internalHue = cam.hue
         self.internalChroma = cam.chroma

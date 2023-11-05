@@ -1,16 +1,30 @@
-[tool.poetry]
-name = "material-color-utilities-python"
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "material-color-utilities-py"
 version = "0.1.3"
 description = "Python port of material-color-utilities used for Material You colors"
-authors = ["Avanish Subbiah <avanishsubbiah1@gmail.com>", "0xMRTT", "David Lapshin"]
-license = "Apache 2.0"
-
-[tool.poetry.dependencies]
-Pillow = "^9.2.0"
-regex = "*"
-
-[tool.poetry.dev-dependencies]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+authors = [
+    {name = "Deathemonic", email = "deathemonic@gmail.com"},
+    {name = "Avanish Subbiah", email = "avanishsubbiah1@gmail.com"},
+    {name = "0xMRTT"},
+    {name = "David Lapshin"}
+]
+maintainers = [{name = "Deathemonic", email = "deathemonic@gmail.com"}]
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache 2.0"}
+classifiers = [
+    "Environment :: X11 Applications",
+    "License :: OSI Approved :: Apache 2.0 License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3"
+]
+dependencies = [
+    "regex",
+    "numpy",
+    "numba; python_version<'3.11'",
+    "Pillow >= 9.2.0"
+]
